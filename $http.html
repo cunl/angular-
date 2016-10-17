@@ -1,0 +1,36 @@
+<body ng-app="my">
+	<div ng-controller="con"></div>
+</body>
+<script>
+    var app=angular.module('my',[])
+
+    .controller('con', ['$scope','$http', function($scope,$http){
+    	data请求成功返回的数据
+    	status请求成功的状态码为200
+    	headers一个function
+    	config一个对象
+    	$http.get('data.php').success(function(data,status,headers,config){
+
+    	}).error(function(err,status,headers,config){
+
+    	});
+/////////////////////////////////////////////////////////////////////
+		$http.post采用postJSON方式发送数据到后台，解决方法：在PHP中使用$postData=file_get_contents('php://input',true);
+    	var postData={text:'postcontent'};
+    	var config={params:{id:'5'}};
+    	$http.post('data.php',postData,config).success(function(data){
+    		console.log(data);
+    	}).error(function(error){
+
+    	});
+///////////////////////////////////////////////////////////////////
+    	url='http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1&callback=JSON_CALLBACK';
+
+ 		在jsonp请求中需要在后面加上	&callback=JSON_CALLBACK
+ 		$http.jsonp(url).success(function(data){
+ 			console.log(data);
+ 		}).error(function(err){
+
+ 		});
+    }]);
+</script>

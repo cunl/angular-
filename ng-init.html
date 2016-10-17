@@ -1,0 +1,18 @@
+ng-init指令为angularjs应用程序定义了初始值
+在angular中所有的指令都以data-开头比如data-ng-init
+<body ng-app="my">
+	<div ng-init="person={name:'zhangsan',age:'12'}"></div>
+    <div ng-bind="person.name"></div>
+
+    <div ng-init="gender='girl'"></div>
+    <div ng-bind="gender"></div>
+
+    <div ng-init="arr=[1,2,3,4]"></div>
+    <div ng-bind="arr[0]+arr[1]"></div>
+
+    <div ng-init="firstName='lin';lastName='chun'"></div>
+    {{firstName+lastName}}
+</body>
+<script>
+    var app=angular.module('my',[]);
+</script>

@@ -1,0 +1,12 @@
+<style>
+    .red{height:100px;width:100px;background: red;}
+</style>
+<body ng-app="my">
+    <div id="div1"></div>
+</body>
+<script>
+    var app=angular.module('my',[]);
+    var $div1=$('#div1');
+    angular.element($div1).html('hehe');
+    angular.element($div1).addClass('red');
+</script>

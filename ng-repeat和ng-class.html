@@ -1,0 +1,25 @@
+ng-app属性用来告诉angular页面中的哪一部分需要接受它的管理
+ng-controller用来引进一个控制器，声明管理在controller中的内容
+ng-class="{red:true}"其中red为类名
+	<div ng-app="my">
+		<div ng-controller="con">
+			<div ng-repeat="item in items">
+				<li>{{item.name}}</li>
+			</div>
+			<div ng-class="{red:true}" ng-show="true"></div>
+		</div>
+	</div>
+	<script>
+		var app=angular.module('my', []);
+
+		app.controller('con', ['$scope', function($scope){
+			$scope.items=[{
+				'name':'zhangsan',
+				'age':'20'
+			},
+			{
+				'name':'lisi',
+				'age':'10'
+			}];
+		}]);
+	</script>

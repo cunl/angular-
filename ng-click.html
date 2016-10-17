@@ -1,0 +1,11 @@
+<button ng-click="count=3">set count three</button>
+<div ng-bind="count"></div>
+
+或者
+
+<button ng-click="setCount()">set count three</button>
+<div ng-bind="count"></div>
+
+$scope.setCount=function(){
+	$scope.count=3;
+}

@@ -1,0 +1,20 @@
+<body ng-app="my">
+	<div ng-controller="con">
+        {{name}}
+    </div>
+</body>
+<script>
+    var app=angular.module('my',[]);
+    app.controller('con',['$scope','$timeout',function($scope,$timeout){
+    	$scope.name='zhangsan';
+        setTimeout(function(){
+        	$scope.$apply(function(){
+        		$scope.name='lisi';
+        	});
+        },2000);
+
+        $timeout(function(){
+        	$scope.name='wangwu';
+        },3000);
+    }]);
+</script>

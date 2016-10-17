@@ -1,0 +1,64 @@
+<body ng-app="my">
+	<div ng-controller="con">
+    </div>
+</body>
+<script>
+    var app=angular.module('my',[]);
+    app.controller('con',['$scope',function($scope){
+        //如果是数组，值为true
+        $scope.arr=[1,2,3];
+        $scope.isArr=angular.isArray($scope.arr);
+
+        //如果是日期，值为true
+        $scope.date=new Date();
+        $scope.isDate=angular.isDate($scope.date);
+
+        //如果是defined，值为true
+        var i=1;
+        $scope.isDefined=angular.isDefined(i);
+
+        var $div=$('div');
+        $scope.isEle=angular.isElement($div);
+
+        // angular.isFunction()
+
+        // angular.isNumber()
+
+        // angular.isObject()
+
+        // angular.isString()
+
+        // angular.isUndefined()
+
+        var json={
+            "name":"zhangsan",
+            "age":"12"
+        };
+
+        //转换成字符串,true为是否格式化
+        $scope.json=angular.toJson(json,true);
+
+        var str='{"name":"zhangsan","age":"12"}';
+
+        //转换成json格式
+        $scope.str=angular.fromJson(str);
+
+        //比较是否相等，如果相等为true
+        var a='111';
+        var b='222';
+        var c=angular.equals(a,b);
+
+        $scope.a={
+            name:'zhangsan'
+        };
+        $scope.b={
+            age:12
+        };
+
+        //继承：$scope.a为目标
+        angular.extend($scope.a,$scope.b);
+
+        //复制：$scope.b为目标
+        angular.copy($scope.a,$scope.b);
+    }]);
+</script>

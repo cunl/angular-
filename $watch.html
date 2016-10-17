@@ -1,0 +1,42 @@
+监控thing.a和thing.b连接之后的值
+var s=$scope.$watch('thing.a+thing.b',function(newval,oldval,scope){
+	console.log(newval);
+},deepwatch);
+
+deepwatch：true/false
+
+注销监控
+s();
+
+
+<div ng-app="my">
+    <div ng-controller="con">
+        <p>单价：<input type="text" ng-model="good.price"/></p>
+        <p>数量：<input type="text" ng-model="good.num"/></p>
+
+        currency过滤器，在价格前面加上￥
+        <p>总额：{{sum() | currency:'￥'}}</p>
+        <p>运费：{{good.pre | currency:'￥'}}</p>
+        <p>总价：{{sum()+good.pre | currency:'￥'}}</p>
+    </div>
+</div>
+
+<script>
+    var app=angular.module('my',[]);
+    app.controller('con',['$scope',function($scope){
+        $scope.good={
+            price:5,
+            num:1,
+            pre:10
+        }
+
+        $scope.sum=function(){
+            return $scope.good.price*$scope.good.num;
+        }
+
+        $watch监视$scope.sum的改变
+        $scope.$watch($scope.sum,function(newval,oldval) {
+            $scope.good.pre=newval>100? 0:10;
+        });
+    }]);
+</script>

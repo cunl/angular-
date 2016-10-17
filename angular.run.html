@@ -1,0 +1,18 @@
+run方法只能通过$rootScope
+<body ng-app="my">
+	<div ng-controller="con">
+        {{name}}
+        {{age}}
+    </div>
+    <div ng-bind="age"></div>
+</body>
+<script>
+    var app=angular.module('my',[]);
+    app.controller('con',['$scope',function($scope){
+        $scope.name='zhangsan';
+    }]);
+
+    app.run(['$rootScope',function($rootScope){
+        $rootScope.age='12';
+    }]);
+</script>

@@ -1,0 +1,24 @@
+<body ng-app="my">
+    <div ng-controller="con"></div>
+</body>
+<script>
+    var app=angular.module('my',[]);
+    app.controller('con',['$scope',function($scope){
+        var z={
+            name:'zhangsan'
+        }
+
+//        绑定对象，作为函数上下文
+//        var f=angular.bind(z,function(age){
+//            $scope.person=this.name+":"+age;
+//            console.log($scope.person);
+//        });
+//        f(21);
+
+        var f=angular.bind(z,function(age){
+            $scope.person=this.name+":"+age;
+            console.log($scope.person);
+        },11);
+        f();
+    }]);
+</script>

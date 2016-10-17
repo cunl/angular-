@@ -1,0 +1,55 @@
+<body>
+    <!-- 默认只会初始化一次module-->
+    <div id="div1">
+        <div ng-controller="con1">
+            {{a}}
+        </div>
+    </div>
+    <div id="div2">
+        <div ng-controller="con2">
+            {{b}}
+        </div>
+    </div>
+</body>
+<script>
+    var app1=angular.module('my1',[]);
+    var app2=angular.module('my2',[]);
+
+    app1.controller('con1',function($scope){
+        $scope.a='zhangsan';
+    });
+
+    app2.controller('con2',function($scope){
+        $scope.b='lisi';
+    });
+
+//  如果想要加载多个module，可以用angular.bootstrap
+    var $div1=$('#div1');
+    var $div2=$('#div2');
+    angular.bootstrap($div1,['my1']);
+    angular.bootstrap($div2,['my2']);
+</script>
+----------------------------------------------------------
+外部引入的形式加载多个module：
+<body ng-app="my">
+    <div ng-controller="con1">
+        {{a}}
+    </div>
+    <div ng-controller="con2">
+        {{b}}
+    </div>
+
+</body>
+<script>
+    // 相当于插件一样，在module中依赖一下就可以了
+    var app=angular.module('my',['my2']);
+    app.controller('con1',function($scope){
+        $scope.a='zhangsan';
+    });
+</script>
+
+外部引入的js文件：
+var app2=angular.module('my2',[]);
+app2.controller('con2',function($scope){
+    $scope.b='lisi';
+});

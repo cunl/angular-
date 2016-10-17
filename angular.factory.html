@@ -1,0 +1,24 @@
+<script type="text/javascript">
+	var show=angular.module('show', []);
+
+	设置好服务工厂，用来创建我们的Items接口，以便访问服务器数据库
+	show.factory('Items',function(){
+		var items={};
+		items.query=function(){
+
+			在真实应用中，从服务器拉取数据
+			return [
+				{
+					'name':'zhangsan'
+				}
+			];
+		}
+
+		return items;
+	});
+
+	show.controller('my', ['$scope','Items', function($scope,Items){
+		$scope.items=Items.query();
+		console.log($scope.items);
+	}]);
+</script>

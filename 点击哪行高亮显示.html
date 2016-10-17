@@ -1,0 +1,32 @@
+点击哪行就高亮显示
+<style>
+	.selected{background:#ccc;}
+	table{
+		width:300px;
+	}
+	td{border:1px solid #ccc;}
+</style>
+
+<body ng-app="show">
+	<table ng-controller="mytable">
+		<tr ng-repeat="item in items" ng-class="{selected:$index==i}" ng-click="findindex($index)">
+			<td ng-bind="item.name"></td>
+		</tr>
+	</table>
+</body>
+
+<script type="text/javascript">
+	var show=angular.module('show', []);
+	show.controller('mytable', ['$scope', function($scope){
+		$scope.items=[
+			{'name':'zhangsan'},
+			{'name':'lisi'},
+			{'name':'wangwu'}
+		];
+
+
+		$scope.findindex=function(row){
+			$scope.i=row;
+		}
+	}]);
+</script>

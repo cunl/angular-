@@ -1,0 +1,21 @@
+<body ng-app="my">
+    <div ng-controller="con"></div>
+</body>
+<script type="text/javascript">
+    var app=angular.module('my', []);
+
+    app.controller('con', ['$scope', function($scope){
+        $scope.arr={
+            name:'zhangsan',
+            age:12,
+            gender:'girl'
+        };
+
+        var result=[];
+        angular.forEach($scope.arr,function(val,key){
+            this.push(key+':'+val);
+        },result);
+
+        console.log(result);
+    }])
+</script>

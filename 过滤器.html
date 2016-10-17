@@ -1,0 +1,64 @@
+过滤器：过个参数之间使用:分隔
+	1、currency
+		{{12.9 | currency}}得到的结果为：$12.90
+		{{12.9 | currency :"￥"}}得到的结果为：￥12.90
+	2、number：参数为有几位小数，且四舍五入
+		{{12.9 | number:3}}得到的结果为：12.900
+
+	3、{{12.1 | number:0 | currency}}结果为：$12.00
+	4、date
+	5、uppercase
+
+	自定义过滤器：【单词首字母大写】
+		<body ng-app="show">
+			<div ng-controller="my">
+				<div ng-bind="item | firstLetter"></div>		
+			</div>
+		</body>
+
+		<script type="text/javascript">
+			var show=angular.module('show', []);
+
+			show.filter('firstLetter',function () {
+				var firstLetterFilter=function(input){
+					var words=input.split(' ');
+					for(var i=0;i<words.length;i++){
+						words[i]=words[i].charAt(0).toUpperCase()+words[i].slice(1);
+					}
+					return words.join(' ');  
+				}
+				return firstLetterFilter;
+			});
+
+			show.controller('my', ['$scope', function($scope){
+				$scope.item='jgjgjjg jjjjj jjj mmm';
+			}]);
+		</script>
+
+
+
+
+
+<body ng-app="my">
+	<div ng-controller="con">
+		<input type="text" ng-model='name'>
+		<ul>
+			通过输入框输入的值进行过滤，并且按照age进行排序，输出的name转换成大写
+			<li ng-repeat="p in person | filter:name | orderBy:'age'">
+				{{(p.name | uppercase)+p.age}}
+			</li>
+		</ul>
+	</div>
+</body>
+<script>
+    var app=angular.module('my',[]);
+
+    app.controller('con', ['$scope','$http', function($scope,$http){
+ 		$scope.person=[
+ 			{'name':'zhangsan','age':'18'},
+ 			{'name':'lisi','age':'20'},
+ 			{'name':'wangwu','age':'12'},
+ 			{'name':'lin','age':'22'}
+ 		];
+    }]);
+</script>

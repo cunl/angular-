@@ -1,0 +1,16 @@
+<body ng-app="my">
+    <hello>ggg</hello>
+</body>
+<script>
+    var app=angular.module('my',[]);
+
+    加上replace为true之后，hello标签被替换成div,内容也会被改变为div中的内容
+    app.directive('hello',function(){
+        return {
+        	E = Element, A = Attribute, C = Class, M = Comment
+            restrict:'E',
+            template:'<div>nihao</div>',
+            replace:'true'
+        }
+    });
+</script>
