@@ -1,0 +1,86 @@
+【1】
+  <body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        
+    </div>
+  </body>
+  <script>
+    var app=angular.module('myApp',[],function($provide){
+      $provide.service('service1',function(){
+        return {
+          name:11
+        }
+        // service不能return字符串
+      });
+    });
+
+    app.controller('myCtrl', ['$scope','service1',function($scope,service1) {
+        console.log(service1);
+    }]);
+  </script>
+
+【2】
+  <body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        
+    </div>
+  </body>
+  <script>
+    var app=angular.module('myApp',[]);
+
+    app.config(['$provide',function($provide) {
+      $provide.service('service1',function(){
+        return {
+          name:"zhangsan",
+          age:12
+        }
+      });
+    }]);
+
+    app.controller('myCtrl', ['$scope','service1',function($scope,service1) {
+        console.log(service1);
+    }]);
+  </script>
+
+【3】
+  <body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        
+    </div>
+  </body>
+  <script>
+    var app=angular.module('myApp',[]);
+
+    app.service('service1',function(){
+      return {
+        name:'lisi',
+        "age":22,
+        "gender":'boy'
+      }
+    });
+
+    app.controller('myCtrl', ['$scope','service1',function($scope,service1) {
+        console.log(service1);
+    }]);
+  </script>
+
+【4】
+  <body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        
+    </div>
+  </body>
+  <script>
+    var app=angular.module('myApp',[]);
+
+    app.service('service1',function(){
+      // service可以通过this来定义方法之类的，且不需要return
+      this.setName=function(name){
+        console.log(name);
+      }
+    });
+
+    app.controller('myCtrl', ['$scope','service1',function($scope,service1) {
+        service1.setName('linluanchun');
+    }]);
+  </script>

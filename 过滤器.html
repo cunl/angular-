@@ -6,8 +6,14 @@
 		{{12.9 | number:3}}得到的结果为：12.900
 
 	3、{{12.1 | number:0 | currency}}结果为：$12.00
-	4、date
-	5、uppercase
+	4、date【date:'yyyy-MM-dd'】
+	5、uppercase	lowercase
+	6、limitTo【如果传进去的参数是负数，则从后面开始数】
+	7、json
+	8、filter:{"name":name}根据name过滤
+	9、orderBy【后面加true表示倒序】
+
+	$filter('currency')($scope.price,'￥');
 
 	自定义过滤器：【单词首字母大写】
 		<body ng-app="show">

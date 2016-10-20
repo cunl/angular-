@@ -1,0 +1,17 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<input type="checkbox" ng-model='sel'>
+    <select>
+      <option>hello</option>
+      <option ng-selected="sel">home</option>
+    </select>
+
+    <input type="checkbox" ng-model='read'>
+    <input type="text" value="helloworld" ng-readonly="read">
+	</div>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+      
+	}]);
+</script>

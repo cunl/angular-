@@ -16,3 +16,19 @@ ng-init指令为angularjs应用程序定义了初始值
 <script>
     var app=angular.module('my',[]);
 </script>
+------------------------------------------------------
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<div ng-repeat="arr1 in arr" ng-init="i=$index">
+			<div ng-repeat="value in arr1" ng-init="j=$index">
+				<span>arr[[{{i}}][{{j}}]]={{value}}</span>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+	   $scope.arr=[['a','b'],['c','d']];
+	}]);
+</script>

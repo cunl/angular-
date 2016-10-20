@@ -1,0 +1,65 @@
+【1】
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+		var app=angular.module('myApp',[],function($provide){
+			$provide.factory('factory1',function(){
+				return {
+					name:'张三'
+				}
+
+				// 可以直接return字符串
+				// return "zhangsan张三";
+			});
+		});
+
+		app.controller('myCtrl', ['$scope','factory1',function($scope,factory1) {
+			console.log(factory1);
+		}]);
+	</script>
+
+
+【2】
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+		var app=angular.module('myApp',[]);
+
+		app.config(['$provide',function($provide) {
+			$provide.factory('factory1',function(){
+				return {
+					age:12
+				}
+			});
+		}]);
+
+		app.controller('myCtrl', ['$scope','factory1',function($scope,factory1) {
+			console.log(factory1);
+		}]);
+	</script>
+
+【3】
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+		var app=angular.module('myApp',[]);
+
+		app.factory('factory1',function(){
+			return {
+				age:20
+			}
+		});
+
+		app.controller('myCtrl', ['$scope','factory1',function($scope,factory1) {
+			console.log(factory1);
+		}]);
+	</script>

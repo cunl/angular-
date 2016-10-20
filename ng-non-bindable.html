@@ -1,0 +1,11 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<!-- 得到的是{{text}} -->
+		<div ng-non-bindable>{{text}}</div>
+	</div>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+	  	 $scope.text='zhangsan';
+	}]);
+</script>

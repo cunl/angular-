@@ -1,0 +1,22 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<form name="form">
+        <input type="text" ng-model="regex"/>
+        <input type="text" ng-model="text" name="input" ng-pattern="regex" />
+        <hr>
+        <!-- 当两个输入框中的值不一样时，form.input.$valid的值为false,
+             且form中的name="form",第二个input中的name="input"
+             第一个input中的ng-model的值和第二个input中的ng-pattern的值一样
+        -->
+        <div ng-cloak>input valid? ={{form.input.$valid}}</div>
+        
+        <!-- 只有当两个输入框中的值一样的时候，text才能显示 -->
+        <div ng-cloak>text={{text}}</div>
+    </form>
+	</div>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+      
+	}]);
+</script>

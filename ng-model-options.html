@@ -1,0 +1,25 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<!-- updateOn: 'default实时改变 blur失去焦点时改变' -->
+		<input ng-model-options="{ updateOn: 'blur' }" ng-model='name'/>
+	    <div ng-bind="name"></div>
+
+	    <!-- 值改变后经过多少毫秒才变化 -->
+	    <input ng-model-options="{debounce:500}" ng-model='text'/>
+	    {{text}}
+		
+		<!-- 设置了getterSetter为true，告诉ng-model绑定的是$scope中的方法 -->
+	    <input ng-model-options="{ getterSetter: true }" ng-model='user.name'/>
+	    <div ng-bind="user.name()"></div>
+	</div>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+	  	 var _name = 'Brian';
+		  $scope.user = {
+		    name: function(newName) {
+		      return angular.isDefined(newName) ? (_name = newName) : _name;
+		    }
+		  };
+	}]);
+</script>

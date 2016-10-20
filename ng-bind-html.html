@@ -1,0 +1,23 @@
+<script src="js/angular-sanitize.min.js"></script>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<div ng-bind-html="text"></div>
+	</div>
+<script>
+	angular.module('myApp', ['ngSanitize'])
+	.controller('myCtrl', ['$scope', function($scope) {
+	   $scope.text='<h2>nihao</h2>';
+	}]);
+</script>
+------------------------------------------------------
+【不引进插件】
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+			<div ng-bind-html="text"></div>
+		</div>
+	<script>
+		angular.module('myApp', [])
+		.controller('myCtrl', ['$scope','$sce',function($scope,$sce) {
+		   $scope.text=$sce.trustAsHtml('<h2>nihap</h2>');
+		}]);
+	</script>

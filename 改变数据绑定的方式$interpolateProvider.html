@@ -1,0 +1,22 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+      <!-- 得到的是{{name}} -->
+      {{name}}
+      
+      <!-- 得到的是$scope.name的值-->
+      //name//
+	</div>
+</body>
+<script>
+  var app=angular.module('myApp',[]);
+
+  app.config(['$interpolateProvider',function($interpolateProvider){
+    // 改变数据绑定的方式
+    $interpolateProvider.startSymbol('//');
+    $interpolateProvider.endSymbol('//');
+  }]);
+
+  app.controller('myCtrl', ['$scope',function($scope) {
+      $scope.name='zhangsan';
+  }]);
+</script>

@@ -1,0 +1,44 @@
+<!-- 加载外部的test.html -->
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+      <div ng-include="test"></div>
+	</div>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+      $scope.test='test.html';
+	}]);
+</script>
+----------------------------------------------
+不加载外部文件：
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      <div ng-include src='test2'></div>
+	      <!--script这段代码需要放在ng-app中  -->
+	      <script type="text/ng-template" id="test2.html">
+	        123
+	      </script>
+		</div>
+	</body>
+	<script>
+	  angular.module('myApp', [])
+	  .controller('myCtrl', ['$scope',function($scope) {
+	      $scope.test2='test2.html';
+	  }]);
+	</script>
+-----------------------------------------------------
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<!-- 可以在src中引进，也可以在ng-include中引进 -->
+      <div ng-include='test2'></div>
+      <script type="text/ng-template" id="test2.html">
+        123456
+      </script>
+	</div>
+</body>
+<script>
+  angular.module('myApp', [])
+  .controller('myCtrl', ['$scope',function($scope) {
+      $scope.test2='test2.html';
+  }]);
+</script>

@@ -1,0 +1,103 @@
+【1】由angular.module的第三个参数定义
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+	  var app=angular.module('myApp',[],function($provide){
+	    $provide.provider('provide1',function(){
+	      this.$get=function(){
+	        return {
+	          name:"zhangsan"
+	        }
+
+	        // 可以直接return字符串
+	        // return "lisizhangsan";
+	      };
+	    });
+	  });
+	  app.controller('myCtrl', ['$scope','provide1',function($scope,provide1) {
+	      console.log(provide1);
+	  }]);
+	</script>
+
+【2】由angular.module中的config定义
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+	  var app=angular.module('myApp',[]);
+
+	  app.config(['$provide',function($provide) {
+	    $provide.provider('provide1',function(){
+	      this.$get=function(){
+	        return {
+	          name:'wangwu'
+	        }
+	      }
+	    });
+	  }]);
+
+	  app.controller('myCtrl', ['$scope','provide1',function($scope,provide1) {
+	      console.log(provide1);
+	  }]);
+	</script>
+
+【3】这是最好的方法
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+	  var app=angular.module('myApp',[]);
+	  
+	  app.provider('provide1',function(){
+	    this.$get=function(){
+	      return {
+	        name:"linlin"
+	      }
+	    }
+	  });
+
+	  app.controller('myCtrl', ['$scope','provide1',function($scope,provide1) {
+	      console.log(provide1);
+	  }]);
+	</script>
+
+
+【注意】provider是唯一一个可以在config中配置属性
+	<body ng-app="myApp">
+		<div ng-controller="myCtrl">
+	      
+		</div>
+	</body>
+	<script>
+		var app=angular.module('myApp',[]);
+
+		// 名称是在provider的命名后面加上Provider
+		app.config(['provide1Provider',function(provide1Provider) {
+			provide1Provider.name='zhangsanlin';
+		}]);
+
+		app.provider('provide1',function(){
+			// 需要注意this的指向
+			var that=this;
+			this.name='';
+
+			this.$get=function(){
+				return {
+					getName:function(){
+					  console.log(that.name);
+					}
+				}
+			}
+		});
+
+		app.controller('myCtrl', ['$scope','provide1',function($scope,provide1) {
+			provide1.getName();
+		}]);
+	</script>

@@ -1,0 +1,14 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+    <!-- 只有当input中的值符合条件时才能显示 -->
+    <input type="text" ng-maxlength='5' ng-model='text'>
+    {{text}}
+    <input type="text" ng-minlength='5' ng-model='text2'>
+    {{text2}}
+	</div>
+<script>
+	angular.module('myApp', [])
+	.controller('myCtrl', ['$scope',function($scope) {
+      
+	}]);
+</script>
