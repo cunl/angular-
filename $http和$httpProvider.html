@@ -1,0 +1,52 @@
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+    
+	</div>
+</body>
+<script>
+  var app=angular.module('myApp',[]);
+
+  app.run(function($http) {
+    // 设置授权头Authorization
+    $http.defaults.headers.common.Authorization = 'Basic YmVlcDpib29w';
+  });
+
+  app.config(['$httpProvider',function($httpProvider){
+    $httpProvider.defaults.transformRequest =function(data){
+      // jQuery方法$.param，把json数据转换成字符串形式
+      return $.param(data);
+    }
+
+    // 删除默认的X-Requested-With
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+    // 为所有GET请求设置DO NOT TRACK
+    $httpProvider.defaults.headers.get={"DNT":"1"};
+  }]);
+
+  app.controller('myCtrl', ['$scope','$http',function($scope,$http) {
+      // $http中config参数的设置：
+              // $http({
+              //   method:,  一个字符串，表示http请求的类型，GET或者POST
+              //   url:,     请求的资源路径
+              //   params:,  加在url后面的参数
+              //   data:,
+              //   headers:,
+              //   transformRequest:,
+              //   transformResponse :,
+              //   cache:true,  只请求一次，之后请求时从缓存中提取
+              //   timeout:,   在请求超时之前需要等待的毫秒数
+              //   withCredentials:
+              // });
+
+      // 默认的请求头：
+              // Accept:application/json,text/plain,/
+              // X-Requested-With:XMLHttpRequest
+
+      $http.get('data.json').success(function(data){
+        console.log(data);
+      }).error(function(error){
+        console.log('error no ok');
+      });
+  }]);
+</script>

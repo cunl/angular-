@@ -1,0 +1,100 @@
+<!-- 需要引进插件route -->
+<script src="js/angular-route.min.js"></script>
+<body ng-controller="mycon">
+	<!-- 可以$location.hash()实现跳转  ng-click="$location.hash(div1);"-->
+	<!-- $location不能同时使用多个 -->
+	<a href="#"  ng-click="$location.hash(div1);">这是div1</a>
+	<a href="#div2/aa/san">这是div2</a>
+
+	<!-- 通过$location.path()实现跳转  ng-click="$location.path(div3);"-->
+	<a href="#div3">这是div3</a>
+	<a href="#div4/12">这是dvi4</a>
+	<div ng-view></div>
+
+	<!-- 当前在外部引进的html文件 -->
+	<pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+
+	<!-- 当前传进的参数 -->
+	<pre>$route.current.params = {{$route.current.params}}</pre>
+
+	<!-- 和链接控制的控制器中的age相对应 -->
+	<pre>$route.current.scope.age = {{$route.current.scope.age}}</pre>
+
+	<!-- 当前传进的参数 -->
+	<pre>$routeParams = {{$routeParams}}</pre>
+</body>
+<script>
+	var app=angular.module('myApp',['ngRoute']);
+
+	app.config(['$routeProvider',function($routeProvider){
+		$routeProvider
+		.when('/div1',{
+			// 引进外部的html文件
+			templateUrl:'test.html',
+
+			// 对应的控制器名称
+			controller:'div1Controller'
+		})
+
+		// 引进多个参数的方式
+		.when('/div2/:num/:name',{
+			template:'<h2>你好div2</h2>{{age}}',
+			controller:'div2Controller'
+		})
+		.when('/div3',{
+			template:'<h2>你好div3</h2>{{age}}',
+			controller:'div3Controller'
+		})
+
+		// /:id为引进参数
+		.when('/div4/:id',{
+			template:'<h2>你好div4</h2>{{age}}',
+			controller:'div4Controller'
+		})
+		.otherwise({
+			redirectTo:'/div1'
+		});
+	}]);
+
+	app.controller('div1Controller', ['$scope','$location', function($scope,$location){
+		// 要将$location和$scope联系起来，上面的代码才可以使用$location 
+		$scope.$location=$location;
+		$scope.age='div1Controller';
+	}]);
+
+	app.controller('div2Controller', ['$scope','$routeParams', function($scope,$routeParams){
+		console.log($routeParams);
+		$scope.age='div2Controller';
+	}]);
+
+	app.controller('div3Controller', ['$scope', function($scope){
+		$scope.age='div3Controller';
+	}]);
+
+	app.controller('div4Controller', ['$scope','$routeParams', function($scope,$routeParams){
+		// $routeParams为上面的参数id
+		console.log($routeParams);
+
+		$scope.age='div4Controller';
+
+		
+	}]);
+
+	app.controller('mycon', ['$scope','$route','$routeParams', function($scope,$route,$routeParams){
+		$scope.$routeParams=$routeParams;
+		$scope.$route=$route;
+	}]);
+
+	app.run(['$rootScope',function($rootScope){
+		//$routeChangeSuccess/$routeChangeError
+		$rootScope.$on('$routeChangeStart',function(event,current,pre){				
+			console.log(event);
+
+			// current是当前
+			console.log(current);
+
+			// pre是上一个
+			console.log(pre);
+		});
+	}]);
+</script>

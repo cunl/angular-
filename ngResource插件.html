@@ -1,0 +1,117 @@
+<script src="js/angular-resource.min.js"></script>
+
+<body ng-controller="myCon">
+	<!-- 获取不到 -->
+	{{name}}
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource']);
+
+	app.controller('myCon', ['$scope','$resource', function($scope,$resource){
+		var obj=$resource('data.json');
+
+		// get只能获取一条数据，如果data.json中的数据是一个数组，就获取不到了
+		$scope.data=obj.get();
+
+		// 得到的结果是undefined
+		$scope.name=$scope.data.name;
+		console.log($scope.name);
+	}]);
+</script>
+
+
+<!-- data.json的内容 -->
+{
+	"name":"zhangsan",
+	"age":"20",
+	"gender":"boy"
+}
+---------------------------------------------------------
+<body ng-controller="myCon">
+	{{data.name}}
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource']);
+
+	app.controller('myCon', ['$scope','$resource', function($scope,$resource){
+		var obj=$resource('data.json');
+
+		$scope.data=obj.get();
+	}]);
+</script>
+----------------------------------------------
+<body ng-controller="myCon">
+	{{data.name}}
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource']);
+
+	app.controller('myCon', ['$scope','$resource', function($scope,$resource){
+		var obj=$resource('data.json');
+
+		$scope.data=obj.get({name:"zhangsan"},function(data){
+			// 请求数据成功,但一般成功和失败的函数不这样写
+			$scope.data=data;
+			console.log(data);
+		},function(error){
+			// 请求数据失败
+			console.log(error);
+		});
+	}]);
+</script>
+----------------------------------------------------
+<body ng-controller="myCon">
+	{{data.name}}
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource']);
+
+	app.controller('myCon', ['$scope','$resource', function($scope,$resource){
+		// 每个传进去的参数以前面需要加上:
+		var obj=$resource(':name.:type');
+
+		// 由传进去的参数组成了请求的地址data.json
+		$scope.data=obj.get({name:"data",type:"json"},function(data){
+			// 请求数据成功
+			$scope.data=data;
+		},function(error){
+			// 请求数据失败
+			console.log(error);
+		});
+	}]);
+</script>
+-----------------------------------------------------
+<!-- 当data.json中的数据比较多时，用query -->
+<body ng-controller="myCon">
+
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource']);
+
+	app.controller('myCon', ['$scope','$resource', function($scope,$resource){
+		// 每个传进去的参数以前面需要加上:
+		var obj=$resource(":name.:type");
+
+		$scope.data=obj.query({name:"data",type:"json"});
+
+		console.log($scope.data);
+	}]);
+</script>
+-------------------------------------------------------
+<body ng-controller="myCon">
+
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource']);
+
+	app.controller('myCon', ['$scope','$resource', function($scope,$resource){
+		// 每个传进去的参数以前面需要加上:
+		// isArray:true表示用的是query
+		var obj=$resource("http://www.57lehuo.com/json.php",{id:"@id"},{getAge:{method:"GET",params:{age:12},isArray:false},getSex:{method:"GET",params:{sex:"boy",isArray:false}}});
+
+		$scope.data=obj.getAge({id:333});
+		$scope.data=obj.getSex({id:222});
+
+		console.log($scope.data);
+	}]);
+</script>

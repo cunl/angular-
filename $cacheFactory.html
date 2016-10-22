@@ -1,0 +1,30 @@
+<body>
+	<div ng-controller="myCon1"></div>
+	<div ng-controller="myCon2"></div>
+</body>
+<script>
+	var app=angular.module('myApp',[]);
+
+	app.controller('myCon1', ['$cacheFactory',function($cacheFactory){
+			// 类似sessionStorage
+			var cache = $cacheFactory('cacheId');
+
+			cache.put('name','zhangsan');
+			cache.put('age','20');
+			cache.put('gender','boy');
+
+			// 可以在设置$cacheFactory的controller中获取
+			// var name=cache.get('name');
+			// console.log(name);
+	}]);
+
+	app.controller('myCon2', ['$cacheFactory',function($cacheFactory){
+			// 也可以在其他的controller中获取，实现不同controller的数据共享
+			var cache = $cacheFactory.get('cacheId');
+
+			// 得到设置cache的信息，其中size为设置的cache的个数
+			var info=cache.info();
+
+			var name=cache.get('name');
+	}]);
+</script>

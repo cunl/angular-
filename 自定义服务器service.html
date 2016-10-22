@@ -84,3 +84,26 @@
         service1.setName('linluanchun');
     }]);
   </script>
+------------------------------------------------------------------------
+<body ng-app="myApp">
+  <div ng-controller="myCtrl">
+    
+  </div>
+</body>
+<script>
+  var app=angular.module('myApp',[]);
+  // 后缀有Provider的都可以在service中使用【比如$httpProvider，使用$http可以使用】
+    app.service('service1', ['$http', function($http){
+    this.getData=function(){
+      $http.get('data.json').success(function(data){
+        console.log(data);
+      }).error(function(error){
+        console.log('error no ok');
+      });
+    }
+  }]);
+
+  app.controller('myCtrl', ['$scope','service1',function($scope,service1) {
+      service1.getData();
+  }]);
+</script>

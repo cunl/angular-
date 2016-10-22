@@ -1,0 +1,29 @@
+<body>
+	<a href="#content/zhangsan">张三</a>
+	<a href="#content/lisi">李四</a>
+	<div ng-view></div>
+
+	<ul>
+		<li ng-repeat="person in persons">
+			{{person.name}}--{{person.age}}--{{person.gender}}
+		</li>
+	</ul>
+</body>
+<script>
+	var app=angular.module('myApp',['ngResource','ngRoute']);
+
+	app.config(['$routeProvider',function($routeProvider) {
+		$routeProvider.when('/content/:id',{
+			template:"<h2>123{{persons[0].name}}</h2>",
+			controller:"nameC"
+		})
+		.otherwise({
+			redirectTo:"/content/zhangsan"
+		});
+	}]);
+
+	app.controller('nameC', ['$rootScope','$resource','$routeParams', function($rootScope,$resource,$routeParams){
+		var obj=$resource($routeParams.id+".json");
+		$rootScope.persons=obj.query();
+	}]);
+</script>

@@ -1,0 +1,63 @@
+<body ng-controller="myCon">
+	<div id="div1"></div>
+	<div id="div2"></div>
+	<div id="div3"></div>
+	<div id="div4"></div>
+	<div id="div5"></div>
+	<div id="div6"></div>
+</body>
+<script>
+	var app=angular.module('myApp',[]);
+
+	app.controller('myCon', ['$scope','$location','$anchorScroll', function($scope,$location,$anchorScroll){
+		// 加上$anchorScroll，通过改变$location.hash中的值就可以实现div的跳转
+		// $location.hash中的值为div的id值
+		$location.hash('div1');
+	}]);
+</script>
+------------------------------------------
+<style>
+	#scrollArea {
+	  height: 280px;
+	  overflow: auto;
+	}
+
+	#bottom {
+	  display: block;
+	  margin-top: 2000px;
+	}
+</style>
+<body>
+	<div id="scrollArea" ng-controller="ScrollController">
+	  <a ng-click="gotoBottom()">Go to bottom</a>
+	  <a id="bottom"></a> You're at the bottom!
+	</div>
+</body>
+<script>
+	var app=angular.module('myApp',[]);
+
+	app.controller('ScrollController', ['$scope','$location','$anchorScroll', function($scope,$location,$anchorScroll){
+			$scope.gotoBottom=function(){
+				$location.hash('bottom');
+				$anchorScroll();
+			}
+	}]);
+</script>
+-----------------------------------------------------
+<body ng-controller="myCon">
+	<div ng-repeat="id in ids" ng-attr-id="div{{id}}">{{id}}</div>
+	<ul>
+		<li ng-repeat="id in ids" ng-click="changediv('div'+id)">{{id}}</li>
+	</ul>
+</body>
+<script>
+	var app=angular.module('myApp',[]);
+
+	app.controller('myCon', ['$scope','$location','$anchorScroll', function($scope,$location,$anchorScroll){
+			$scope.ids=[1,2,3,4,5,6,7];
+
+			$scope.changediv=function(id){
+				$location.hash(id);
+			}
+	}]);
+</script>

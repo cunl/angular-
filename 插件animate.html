@@ -1,0 +1,143 @@
+	<script src="js/angular-animate.min.js"></script>
+	<style>	
+		.box{
+			/*加上动画需要加上变化的时间transition*/
+			height: 100px;width: 100px;background: #ccc;transition: 2s;
+		}
+
+		/*ngAnimate的css3方式【1】：*/
+			/*支持的指令：ng-if ng-view ng-repeat ng-include ng-switch*/
+			/*ng-enter与ng-hide-remove执行的代码的一样的*/
+		.box.ng-enter{
+			opacity: 0;
+		}
+		.box.ng-enter-active{
+			opacity: 1;
+		}
+		.box.ng-leave{
+			opacity: 1;
+		}
+		.box.ng-leave-active{
+			opacity:0;
+		}
+	</style>
+</head>
+<body ng-controller="myCon">
+	<input type="checkbox" ng-model='btn'>
+	<div ng-if="btn" class="box"></div>
+</body>
+<script>
+	var app=angular.module('myApp',['ngAnimate']);
+
+	app.controller('myCon', ['$scope', function($scope){
+		
+	}]);
+</script>
+-----------------------------------------------------
+	<script src="js/angular-animate.min.js"></script>
+	<style>
+		.box{
+			height: 100px;width: 100px;background: #ccc;transition: 2s;
+		}
+
+		/*ngAnimate的css3方式【2】：*/
+			/*支持的指令：ng-class  ng-show  ng-hide  ng-model*/		
+		.box.ng-hide-add{
+			opacity: 1;
+		}
+		.box.ng-hide-add-active{
+			opacity: 0;
+		}
+		.box.ng-hide-remove{
+			opacity: 0;
+		}
+		.box.ng-hide-remove-active{
+			opacity:1;
+		}
+	</style>
+</head>
+<body ng-controller="myCon">
+	<input type="checkbox" ng-model='btn'>
+	<div ng-show="btn" class="box"></div>
+</body>
+<script>
+	var app=angular.module('myApp',['ngAnimate']);
+
+	app.controller('myCon', ['$scope', function($scope){
+		
+	}]);
+</script>
+--------------------------------------------------------
+【js方式】enter与removeClass执行的代码是一样的，leave与addClass执行的代码是一样的
+	（1）
+		<body ng-controller="myCon">
+			<input type="checkbox" ng-model='btn'>
+			<div class="box" ng-if="btn"></div>
+		</body>
+		<script>
+			var app=angular.module('myApp',['ngAnimate']);
+
+			app.controller('myCon', ['$scope', function($scope){
+				
+			}]);
+
+			// 支持的指令：ng-if ng-view ng-repeat ng-include ng-switch
+			app.animation('.box',function(){
+				return {
+					enter:function(element,done){
+						$(element).css({
+							width:0,
+							height:0
+						});
+
+						$(element).animate({
+							width:100,
+							height:100
+						},1000,done);
+					},
+					leave:function(element,done){
+						$(element).animate({
+							width:0,
+							height:0
+						},1000,done);
+					}
+				}
+			});
+		</script>
+
+
+	（2）
+		<body ng-controller="myCon">
+			<input type="checkbox" ng-model='btn'>
+			<div class="box" ng-show="btn"></div>
+		</body>
+		<script>
+			var app=angular.module('myApp',['ngAnimate']);
+
+			app.controller('myCon', ['$scope', function($scope){
+				
+			}]);
+
+			// 支持的指令：ng-class  ng-show  ng-hide  ng-model
+			app.animation('.box',function(){
+				return {
+					addClass:function(element,sClass,done){
+						$(element).animate({
+							width:0,
+							height:0
+						},1000,done);
+					},
+					removeClass:function(element,sClass,done){
+						$(element).css({
+							width:0,
+							height:0
+						});
+
+						$(element).animate({
+							width:100,
+							height:100
+						},1000,done);
+					}
+				}
+			});
+		</script>

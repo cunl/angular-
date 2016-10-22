@@ -1,0 +1,38 @@
+<body ng-controller="myCon">
+	
+</body>
+<script>
+	var app=angular.module('myApp',[]);
+
+	app.controller('myCon', ['$scope','$location', function($scope,$location){
+		// url片段
+		var absurl=$location.absUrl();
+
+		// 当不带参数时，返回/
+		var url=$location.url();
+
+		// 返回主机路径
+		var host=$location.host();
+		
+		// 返回当前路径的端口号
+		var port = $location.port();
+
+		// 返回当前url的搜索部分
+		var searchObject = $location.search();
+
+		// 在当前url后面加上?foo=yipee
+		$location.search('foo', 'yipee');
+
+		// 返回当前url的协议
+		var protocol = $location.protocol();
+
+		// 没有带参数时，返回的是/
+		var path=$location.path();
+
+		// 加上参数后url后面加上了/new，并且有历史管理
+		$location.path('/new');
+
+		// 可以跳转，返回的是一个空的
+		$location.path('/new').replace();
+	}]);
+</script>
